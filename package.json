@@ -6,7 +6,10 @@
     "name": "itmanyong",
     "email": "itmanyong@gmail.com"
   },
-  "repository": "https://github.com/itmanyong/un-api.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itmanyong/un-api.git"
+  },
   "type": "module",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
