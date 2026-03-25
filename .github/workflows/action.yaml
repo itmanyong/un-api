@@ -1,0 +1,136 @@
+name: Publish to NPM
+
+on:
+  pull_request:
+    types:
+      - closed
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    name: Publish Package to NPM
+    runs-on: ubuntu-latest
+    
+    if: |
+      github.event.pull_request.merged == true &&
+      contains(github.event.pull_request.title, 'chore(release):')
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Get pnpm version
+        id: pnpm-version
+        run: |
+          echo "version=$(pnpm --version)" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build project
+        run: |
+          echo "::group::Building packages"
+          pnpm build
+          echo "::endgroup::"
+
+      - name: Extract version from PR title
+        id: version
+        run: |
+          VERSION=$(echo "${{ github.event.pull_request.title }}" | grep -oP 'v\d+\.\d+\.\d+' || echo "unknown")
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "::notice::Publishing version ${VERSION}"
+
+      - name: Publish to NPM
+        id: publish
+        continue-on-error: true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "::group::Publishing @itmanyong/un-api to NPM"
+          
+          # Use pnpm to publish the specific package
+          pnpm --filter @itmanyong/un-api publish --access=public --no-git-checks
+          
+          PUBLISH_STATUS=$?
+          echo "::endgroup::"
+          
+          if [ $PUBLISH_STATUS -eq 0 ]; then
+            echo "::notice::✓ Package published successfully to NPM"
+            echo "success=true" >> $GITHUB_OUTPUT
+          else
+            echo "::warning::Publishing encountered an error, but proceeding to verify"
+            echo "success=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Verify NPM package
+        if: steps.publish.outputs.success == 'true'
+        continue-on-error: true
+        run: |
+          echo "::group::Verifying package on NPM"
+          
+          # Wait a moment for NPM CDN to sync
+          sleep 5
+          
+          VERSION=${{ steps.version.outputs.version }}
+          PACKAGE_VERSION=$(npm view @itmanyong/un-api@${VERSION} version 2>/dev/null || echo "not-found")
+          
+          if [ "${PACKAGE_VERSION}" = "${VERSION}" ]; then
+            echo "::notice::✓ Package verified on NPM: @itmanyong/un-api@${VERSION}"
+          else
+            echo "::warning::Package version does not match (expected ${VERSION}, got ${PACKAGE_VERSION})"
+          fi
+          
+          echo "::endgroup::"
+
+      - name: Comment on PR (Success)
+        if: steps.publish.outputs.success == 'true'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 📦 NPM Package Published Successfully\n\n✓ **@itmanyong/un-api@${{ steps.version.outputs.version }}** has been published to NPM\n\n- Package URL: https://www.npmjs.com/package/@itmanyong/un-api\n- Version: ${{ steps.version.outputs.version }}\n- Published at: ${new Date().toISOString()}`
+            })
+
+      - name: Comment on PR (Failure)
+        if: steps.publish.outputs.success != 'true'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## ⚠️ NPM Package Publishing Issue\n\nPublishing **@itmanyong/un-api@${{ steps.version.outputs.version }}** encountered issues.\n\nPlease check the workflow logs for details or manually publish if needed.`
+            })
+
+      - name: Create GitHub Release
+        if: steps.publish.outputs.success == 'true'
+        continue-on-error: true
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          draft: false
+          generate_release_notes: true

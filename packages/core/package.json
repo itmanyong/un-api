@@ -18,10 +18,7 @@
     "url": "git+https://github.com/itmanyong/un-api.git"
   },
   "files": [
-    "build",
-    "../../docs",
-    "../../README.md",
-    "./CHANGELOG.md"
+    "build"
   ],
   "type": "module",
   "types": "./build/index.d.mts",
