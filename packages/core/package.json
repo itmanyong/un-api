@@ -1,6 +1,6 @@
 {
   "name": "@itmanyong/un-api",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "private": false,
   "description": "一个自动根据文档构建API请求的解放双手工具库",
   "keywords": [
