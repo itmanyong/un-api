@@ -700,10 +700,10 @@ fileHeader: [
 
 ## 相关文档
 
-- **[最佳使用指南](/docs/best.md)** - 快速接入使用
-- **[完整配置](/docs/config.md)** - 可配置项详尽说明
-- **[TS类型编码](/docs/typescript.md)** - 完全把控类型生成+类型提示配置
-- [API生成模块](/docs/browser.md) - 客户端生成API的方法
-- [平台插件集成](/docs/platform.md) - 各平台内置插件、未内置平台适配
-- [核心实现](/docs/core.md) - 核心生成逻辑全解析
-- [axios三方库适配示例](/docs/axios-prefile.md) - axios三方库适配示例
+- **[最佳使用指南](https://github.com/itmanyong/un-api/blob/main/docs/best.md)** - 快速接入使用
+- **[完整配置](https://github.com/itmanyong/un-api/blob/main/docs/config.md)** - 可配置项详尽说明
+- **[TS类型编码](https://github.com/itmanyong/un-api/blob/main/docs/typescript.md)** - 完全把控类型生成+类型提示配置
+- [API生成模块](https://github.com/itmanyong/un-api/blob/main/docs/browser.md) - 客户端生成API的方法
+- [平台插件集成](https://github.com/itmanyong/un-api/blob/main/docs/platform.md) - 各平台内置插件、未内置平台适配
+- [核心实现](https://github.com/itmanyong/un-api/blob/main/docs/core.md) - 核心生成逻辑全解析
+- [axios三方库适配示例](https://github.com/itmanyong/un-api/blob/main/docs/axios-prefile.md) - axios三方库适配示例

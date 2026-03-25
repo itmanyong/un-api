@@ -1,10 +1,29 @@
 {
   "name": "@itmanyong/un-api",
-  "version": "0.0.4",
+  "version": "0.0.11",
   "private": false,
   "description": "一个自动根据文档构建API请求的解放双手工具库",
-  "keywords": [],
-  "homepage": "https://github.com/itmanyong/un-api#readme",
+  "keywords": [
+    "api",
+    "api-builder",
+    "api-generator",
+    "api-swagger",
+    "bun-plugin-un-api",
+    "esbuild-plugin-un-api",
+    "farm-plugin-un-api",
+    "generator-api",
+    "itemanyong",
+    "openapi",
+    "rolldown-plugin-un-api",
+    "rollup-plugin-un-api",
+    "rspack-plugin-un-api",
+    "swagger-api",
+    "un-api",
+    "un-api-builder",
+    "vite-plugin-un-api",
+    "webpack-plugin-un-api"
+  ],
+  "homepage": "https://github.com/itmanyong/un-api",
   "bugs": {
     "url": "https://github.com/itmanyong/un-api/issues"
   },
@@ -18,7 +37,9 @@
     "url": "git+https://github.com/itmanyong/un-api.git"
   },
   "files": [
-    "build"
+    "build",
+    "README.md",
+    "CHANGELOG.md"
   ],
   "type": "module",
   "types": "./build/index.d.mts",

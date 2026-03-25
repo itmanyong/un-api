@@ -45,24 +45,24 @@ export default defineConfig({
 - 以路径别名方式覆盖源码模块级局部类型定义
 - 为ts识别类型定义提供指定
 
-```json
-{
+```typescript
+export default {
   // ...其他配置
-  "compilerOptions": {
+  compilerOptions: {
     // ...其他配置
     // 根路径建议配置上
-    "baseUrl": ".",
-    "paths": {
+    baseUrl: ".",
+    paths: {
       // ...其他路径别名
       // 此处别名对应上的源码别名配置
       // 别名路径值需要指向对应文档生成的ts类型文件目录-默认为工作根目录下`types/${name}`
       // 例如文档配置的`name=qianniao`,那么别名路径为`types/qianniao`
       "@qianniao": ["types/qianniao"],
       "@xinli": ["types/xinli"],
-      "@yusuan": ["types/yusuan"]
-    }
-  }
-}
+      "@yusuan": ["types/yusuan"],
+    },
+  },
+};
 ```
 
 - `.un-api.config.ts`生成文档配置文件
@@ -245,10 +245,10 @@ export default defineConfig({
 
 ## 相关文档
 
-- **[最佳使用指南](/docs/best.md)** - 快速接入使用
-- **[完整配置](/docs/config.md)** - 可配置项详尽说明
-- **[TS类型编码](/docs/typescript.md)** - 完全把控类型生成+类型提示配置
-- [API生成模块](/docs/browser.md) - 客户端生成API的方法
-- [平台插件集成](/docs/platform.md) - 各平台内置插件、未内置平台适配
-- [核心实现](/docs/core.md) - 核心生成逻辑全解析
-- [axios三方库适配示例](/docs/axios-prefile.md) - axios三方库适配示例
+- **[最佳使用指南](https://github.com/itmanyong/un-api/blob/main/docs/best.md)** - 快速接入使用
+- **[完整配置](https://github.com/itmanyong/un-api/blob/main/docs/config.md)** - 可配置项详尽说明
+- **[TS类型编码](https://github.com/itmanyong/un-api/blob/main/docs/typescript.md)** - 完全把控类型生成+类型提示配置
+- [API生成模块](https://github.com/itmanyong/un-api/blob/main/docs/browser.md) - 客户端生成API的方法
+- [平台插件集成](https://github.com/itmanyong/un-api/blob/main/docs/platform.md) - 各平台内置插件、未内置平台适配
+- [核心实现](https://github.com/itmanyong/un-api/blob/main/docs/core.md) - 核心生成逻辑全解析
+- [axios三方库适配示例](https://github.com/itmanyong/un-api/blob/main/docs/axios-prefile.md) - axios三方库适配示例
