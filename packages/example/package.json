@@ -14,6 +14,6 @@
   "dependencies": {
     "@itmanyong/un-api": "workspace:*",
     "vite": "catalog:",
-    "axios":"catalog:"
+    "axios": "catalog:"
   }
 }
