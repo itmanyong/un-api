@@ -13,12 +13,12 @@
   },
   "scripts": {
     "dev": "pnpm stop && turbo run dev",
-    "build": "pnpm stop && turbo run build",
+    "build": "turbo run build",
     "clean": "node ./scripts/clean.js",
     "stop": "node ./scripts/stop-node-process.js",
     "changeset": "changeset",
     "version-packages": "changeset version && pnpm install",
-    "release": "pnpm build && pnpm -r --filter='@itmanyong/un-api' && pnpm --filter @itmanyong/un-api publish --access=public --no-git-checks"
+    "release": "pnpm build && pnpm --filter @itmanyong/un-api publish --access=public --no-git-checks"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "catalog:",

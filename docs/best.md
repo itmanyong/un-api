@@ -109,7 +109,7 @@ pnpm dev
 
 ```typescript
 // 导入生成的 API
-import { apiQianniao } from './src/apis/qianniao';
+import { apiQianniao } from "./src/apis/qianniao";
 
 // 使用 API
 const result = await apiQianniao.user.getById({
@@ -124,30 +124,30 @@ console.log(result.data);
 
 ```typescript
 // module 模式（默认）
-import { apiQianniao } from './src/apis/qianniao';
-const user = await apiQianniao.user.getById({ params: { id: 1 } });
+import { apiQianniaoUser } from "./src/apis/qianniao";
+const user = await apiQianniaoUser.getById({ params: { id: 1 } });
 
 // api 模式
-import { apiUserGetById } from './src/apis/qianniao';
+import { apiUserGetById } from "./src/apis/qianniao";
 const user = await apiUserGetById({ params: { id: 1 } });
 
 // default 模式
-import apiQianniao from './src/apis/qianniao';
+import apiQianniao from "./src/apis/qianniao";
 const user = await apiQianniao.user.getById({ params: { id: 1 } });
 ```
 
 #### 类型安全
 
 ```typescript
-import type { UserGetByIdGeneric } from '@qianniao';
+import type { UserGetByIdGeneric } from "@qianniao";
 
 // 完整的类型提示和校验
-async function fetchUser(id: number): Promise<UserGetByIdGeneric['result']> {
+async function fetchUser(id: number): Promise<UserGetByIdGeneric["result"]> {
   const response = await apiQianniao.user.getById({
     params: { id }, // params.id 类型为 number
     query: { includeDetails: true }, // query.includeDetails 类型为 boolean
   });
-  
+
   return response.data; // 返回类型为 UserGetByIdResponse
 }
 ```
@@ -218,7 +218,7 @@ requestor: `
       body,
     });
   }
-`
+`;
 ```
 
 #### 4. 如何处理不同的响应格式？
@@ -233,7 +233,9 @@ export default defineConfig({
       apiParser: (ctx) => {
         return {
           // 自定义响应类型处理
-          responseType: ctx.config.apiResponseType || 'application/json',
+          options: {
+            responseType: ctx.config.apiResponseType || "application/json",
+          },
         };
       },
     },

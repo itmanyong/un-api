@@ -18,7 +18,9 @@
     "url": "git+https://github.com/itmanyong/un-api.git"
   },
   "files": [
-    "build"
+    "build",
+    "../../docs",
+    "../../README.md"
   ],
   "type": "module",
   "types": "./build/index.d.mts",
