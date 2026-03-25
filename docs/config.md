@@ -1,6 +1,6 @@
 # 配置参考
 
-本文档提供 un-api-builder 所有配置项的完整说明。
+本文档提供 un-api 所有配置项的完整说明。
 ## 配置结构类型
 
 ```typescript
@@ -87,7 +87,7 @@ export interface ConfigOptions extends ConfigDocOptionsCommon {
 ### 最小配置
 
 ```typescript
-import { defineConfig } from "un-api-builder";
+import { defineConfig } from "un-api";
 
 export default defineConfig({
   docs: [

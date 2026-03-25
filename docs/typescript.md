@@ -4,7 +4,7 @@
 
 ## 类型生成概述
 
-un-api-builder 会根据 OpenAPI 文档中的 Schema 定义自动生成 TypeScript 类型文件，包括：
+un-api 会根据 OpenAPI 文档中的 Schema 定义自动生成 TypeScript 类型文件，包括：
 
 - 接口请求参数类型（Query、Params、Body）
 - 接口响应结果类型
