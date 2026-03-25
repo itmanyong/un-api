@@ -86,27 +86,26 @@ const response = await apiMyApi.user.getById({
 - [axios三方库适配示例](/docs/axios-prefile.md) - axios三方库适配示例
 
 ## 生成的代码示例/效果
-
 - 开发体验示例
-  ![API模块IDE-显示类型定义和子方法](./docs/images/api-module-ide-tooltip.png)
-  ![API接口IDE-呈现类型必填和参数是否必填](./docs/images/api-func-option-tooltip.png)
-  ![API接口IDE-接口参数类型](./docs/images/api-func-option-data-ts-tooltip.png)
-  ![API接口IDE-接口参数字段类型](./docs/images/api-func-option-field-ts-tooltip.png)
-  ![API接口IDE-字段弹层含义提示](./docs/images/api-func-field-tip.png)
-  ![API接口IDE-模块接口ts编码提示](./docs/images/api-func-tooltip.png)
-  ![API接口IDE-接口参数字段说明弹层](./docs/images/api-params-field-desc-tooltip.png)
+  ![API模块IDE-显示类型定义和子方法](https://github.com/itmanyong/un-api/raw/main/docs/images/api-module-ide-tooltip.png)
+  ![API接口IDE-呈现类型必填和参数是否必填](https://github.com/itmanyong/un-api/raw/main/docs/images/api-func-option-tooltip.png)
+  ![API接口IDE-接口参数类型](https://github.com/itmanyong/un-api/raw/main/docs/images/api-func-option-data-ts-tooltip.png)
+  ![API接口IDE-接口参数字段类型](https://github.com/itmanyong/un-api/raw/main/docs/images/api-func-option-field-ts-tooltip.png)
+  ![API接口IDE-字段弹层含义提示](https://github.com/itmanyong/un-api/raw/main/docs/images/api-func-field-tip.png)
+  ![API接口IDE-模块接口ts编码提示](https://github.com/itmanyong/un-api/raw/main/docs/images/api-func-tooltip.png)
+  ![API接口IDE-接口参数字段说明弹层](https://github.com/itmanyong/un-api/raw/main/docs/images/api-params-field-desc-tooltip.png)
 - 配置示例
-  ![配置示例](./docs/images/config-demo.png)
+  ![配置示例](https://github.com/itmanyong/un-api/raw/main/docs/images/config-demo.png)
 - 生成的API示例
-  ![默认导出+内存模式](./docs/images/api-default-memory.png)
-  ![接口导出+代理模式](./docs/images/api-module-api-config.png)
-  ![模块提示](./docs/images/api-module-ide-tooltip.png)
-  ![代理模式+接口导出](./docs/images/api-proxy-api-export.png)
-  ![代理模式+模块导出](./docs/images/api-proxy-module-export.png)
+  ![默认导出+内存模式](https://github.com/itmanyong/un-api/raw/main/docs/images/api-default-memory.png)
+  ![接口导出+代理模式](https://github.com/itmanyong/un-api/raw/main/docs/images/api-module-api-config.png)
+  ![模块提示](https://github.com/itmanyong/un-api/raw/main/docs/images/api-module-ide-tooltip.png)
+  ![代理模式+接口导出](https://github.com/itmanyong/un-api/raw/main/docs/images/api-proxy-api-export.png)
+  ![代理模式+模块导出](https://github.com/itmanyong/un-api/raw/main/docs/images/api-proxy-module-export.png)
 - 生成的TS类型示例
-  ![ts接口类型](./docs/images/ts-api-params-define.png)
-  ![ts函数类型](./docs/images/ts-api.png)
-  ![ts模块命名空间类型](./docs/images/ts-module.png)
+  ![ts接口类型](https://github.com/itmanyong/un-api/raw/main/docs/images/ts-api-params-define.png)
+  ![ts函数类型](https://github.com/itmanyong/un-api/raw/main/docs/images/ts-api.png)
+  ![ts模块命名空间类型](https://github.com/itmanyong/un-api/raw/main/docs/images/ts-module.png)
 
 ## 开发
 
