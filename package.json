@@ -20,6 +20,7 @@
     "clean": "node ./scripts/clean.js",
     "stop": "node ./scripts/stop-node-process.js",
     "changeset": "changeset",
+    "test": "turbo run test",
     "version-packages": "changeset version && pnpm install",
     "release": "pnpm build && pnpm --filter @itmanyong/un-api publish --access=public --no-git-checks"
   },
@@ -27,6 +28,7 @@
     "@arethetypeswrong/cli": "catalog:",
     "@changesets/cli": "catalog:",
     "@types/node": "catalog:",
+    "axios": "catalog:",
     "console-table-printer": "catalog:",
     "es-toolkit": "catalog:",
     "husky": "catalog:",
@@ -36,14 +38,13 @@
     "oxfmt": "catalog:",
     "picocolors": "catalog:",
     "publint": "catalog:",
+    "tsdown": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:",
     "unconfig": "catalog:",
-    "vite": "catalog:",
-    "tsdown": "catalog:",
-    "vitest": "catalog:",
     "unplugin": "catalog:",
-    "axios": "catalog:"
+    "vite": "catalog:",
+    "vitest": "catalog:"
   },
   "engines": {
     "node": ">=24.10.0",

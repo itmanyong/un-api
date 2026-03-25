@@ -50,7 +50,7 @@ jobs:
       - name: Extract version from PR title
         id: version
         run: |
-          VERSION=$(echo "${{ github.event.pull_request.title }}" | grep -oP 'v\d+\.\d+\.\d+' || echo "unknown")
+          VERSION=$(echo "${{ github.event.pull_request.title }}" | grep -oP 'v\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?' || echo "unknown")
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "::notice::Publishing version ${VERSION}"
 
