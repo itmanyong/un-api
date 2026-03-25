@@ -1,6 +1,6 @@
-// 当前文件由 un-api 自动生成-非必要请勿手动修改此文件
+// 当前文件由 @itmanyong/un-api 自动生成-非必要请勿手动修改此文件
 import * as apis from "./apis/index.ts";
-import { createProxyModule } from "un-api/browser";
+import { createProxyModule } from "@itmanyong/un-api/browser";
 
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |

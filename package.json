@@ -16,7 +16,7 @@
   },
   "scripts": {
     "dev": "pnpm stop && turbo run dev",
-    "build": "turbo run build",
+    "build": "turbo run @itmanyong/un-api#build",
     "clean": "node ./scripts/clean.js",
     "stop": "node ./scripts/stop-node-process.js",
     "changeset": "changeset",

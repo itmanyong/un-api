@@ -1,1 +1,1 @@
-export const LIB_NAME = "un-api";
+export const LIB_NAME = "@itmanyong/un-api";

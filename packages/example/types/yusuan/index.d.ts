@@ -1,5 +1,5 @@
 import * as tsTypes from "./types";
-import type { ApiFunctionGenerate } from "un-api";
+import type { ApiFunctionGenerate } from "@itmanyong/un-api";
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
 export {};
 declare module "@yusuan" {
