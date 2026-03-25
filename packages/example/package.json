@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "example",
+  "version": "0.0.1",
+  "description": "Demo example that imports a local package",
+  "author": {
+    "name": "itmanyong",
+    "email": "itmanyong@gmail.com"
+  },
+  "main": "./src/index.ts",
+  "scripts": {
+    "dev": "vite dev"
+  },
+  "dependencies": {
+    "un-api": "workspace:*",
+    "vite": "catalog:",
+    "axios":"catalog:"
+  }
+}

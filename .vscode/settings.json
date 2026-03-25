@@ -1,0 +1,8 @@
+{
+  "search.exclude": {
+    "**/dist": true,
+    "**/build": true,
+    "**/turbo": true,
+    "**/node_modules": true,
+  },
+}

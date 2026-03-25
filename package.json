@@ -1,0 +1,50 @@
+{
+  "private": false,
+  "description": "一个自动根据文档构建API请求的解放双手工具库",
+  "license": "MIT",
+  "author": {
+    "name": "itmanyong",
+    "email": "itmanyong@gmail.com"
+  },
+  "repository": "https://github.com/itmanyong/un-api-builder.git",
+  "type": "module",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "dev": "pnpm stop && turbo run dev",
+    "build": "pnpm stop && turbo run build",
+    "clean": "node ./scripts/clean.js",
+    "stop": "node ./scripts/stop-node-process.js",
+    "changeset": "changeset",
+    "version-packages": "changeset version && pnpm install",
+    "release": "pnpm build && pnpm -r --filter='un-api' exec -- npx npm@11 publish --no-git-checks --provenance"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "catalog:",
+    "@changesets/cli": "catalog:",
+    "@types/node": "catalog:",
+    "console-table-printer": "catalog:",
+    "es-toolkit": "catalog:",
+    "husky": "catalog:",
+    "is-ci": "catalog:",
+    "lint-staged": "catalog:",
+    "openapi3-ts": "catalog:",
+    "oxfmt": "catalog:",
+    "picocolors": "catalog:",
+    "publint": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "unconfig": "catalog:",
+    "vite": "catalog:",
+    "tsdown": "catalog:",
+    "vitest": "catalog:",
+    "unplugin": "catalog:",
+    "axios": "catalog:"
+  },
+  "engines": {
+    "node": ">=24.10.0",
+    "pnpm": ">=10.0.0"
+  },
+  "packageManager": "pnpm@11.0.0-beta.2"
+}

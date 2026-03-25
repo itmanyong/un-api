@@ -1,0 +1,176 @@
+import type { OpenAPIObject } from "openapi3-ts/oas31";
+import type { ApiCtx, ConfigDocOptions, DocApiResult, RecordType } from "@/types";
+import { getFullPath, LIB_NAME, toValue, toVariableNameCamelCase } from "@/shared";
+import { isEmptyObject, omitBy } from "es-toolkit";
+import { API_DEFINE_DIR_NAME } from "./shared";
+import { getApiNote, getDocNote, getModuleNote } from "@/core/note";
+import { DEFAULT_FILE_HEADER } from "@/core/config";
+import { writeFile } from "fs/promises";
+import { existsSync, mkdirSync, rmdirSync, rmSync } from "fs";
+import { dirname } from "path";
+
+/**
+ * 生成单个模块的接口定义文件内容
+ */
+const generateModuleFileContent = (moduleName: string, apiModuleList: Required<ApiCtx>[], docConfig: ConfigDocOptions): string[] => {
+  const filename = `${moduleName}.${docConfig.outputType}`;
+  const outputPath = getFullPath(docConfig.output, API_DEFINE_DIR_NAME, filename);
+  const fileContentJson = apiModuleList.reduce((acc, cur) => {
+    acc[cur.config.name] = omitBy(cur.config, (val, key) => !val || ["module", "name"].includes(key as string) || isEmptyObject(val));
+    return acc;
+  }, {} as RecordType);
+
+  return [
+    ...DEFAULT_FILE_HEADER,
+    ...toValue(docConfig.fileHeader, outputPath, "module", moduleName, apiModuleList),
+    `export default ${JSON.stringify(fileContentJson, null, 2)};`,
+    ...toValue(docConfig.fileFooter, outputPath, "module", moduleName, apiModuleList),
+  ];
+};
+
+/**
+ * 生成模块桶文件内容
+ */
+const generateApiBucketContent = (apiModuleMap: Map<string, Required<ApiCtx>[]>, docConfig: ConfigDocOptions): string[] => {
+  const content: string[] = [];
+  for (const [moduleName] of apiModuleMap) {
+    content.push(`export { default as ${moduleName} } from './${moduleName}.${docConfig.outputType}';`);
+  }
+
+  const apiBucketFilename = getFullPath(docConfig.output, API_DEFINE_DIR_NAME, `index.${docConfig.outputType}`);
+  content.unshift(...toValue(docConfig.fileHeader, apiBucketFilename, "bucket"));
+  content.unshift(...DEFAULT_FILE_HEADER);
+  content.push(...toValue(docConfig.fileFooter, apiBucketFilename, "bucket"));
+  return content;
+};
+
+/**
+ * 生成 API 创建函数调用代码
+ */
+const buildApiCreationCode = (docConfig: ConfigDocOptions, target: string): string => {
+  const wrapApiName = toVariableNameCamelCase("create", docConfig.codeMode, docConfig.exportMode);
+  return `${wrapApiName}(${target},${docConfig.requestor})`;
+};
+
+/**
+ * 生成导出声明行
+ */
+const buildExportLine = (docConfig: ConfigDocOptions, exportName: string, apiCreationCode: string, comment?: string): string[] => {
+  const lines: string[] = [];
+  if (comment) lines.push(comment);
+  lines.push(`export const ${exportName} = ${apiCreationCode};`);
+  return lines;
+};
+
+/**
+ * 生成模块级别导出（module 导出模式）
+ */
+const generateModuleExports = (docConfig: ConfigDocOptions, apiModuleMap: Map<string, Required<ApiCtx>[]>): string[] => {
+  const lines: string[] = [];
+
+  for (const [moduleName, apiModuleList] of apiModuleMap) {
+    const exportName = toVariableNameCamelCase(docConfig.prefix, moduleName);
+    lines.push(getModuleNote(moduleName, apiModuleList));
+    const apiCreationCode = buildApiCreationCode(docConfig, `${API_DEFINE_DIR_NAME}.${moduleName}`);
+    lines.push(...buildExportLine(docConfig, exportName, apiCreationCode));
+  }
+
+  return lines;
+};
+
+/**
+ * 生成 API 级别导出（api 导出模式）
+ */
+const generateApiExports = (docConfig: ConfigDocOptions, apiModuleMap: Map<string, Required<ApiCtx>[]>): string[] => {
+  const lines: string[] = [];
+
+  for (const [, apiModuleList] of apiModuleMap) {
+    for (const apiConfig of apiModuleList) {
+      const exportName = toVariableNameCamelCase(docConfig.prefix, apiConfig.config.module, apiConfig.config.name);
+      lines.push(getApiNote(apiConfig));
+      const apiCreationCode = buildApiCreationCode(docConfig, `${API_DEFINE_DIR_NAME}.${apiConfig.config.module}.${apiConfig.config.name}`);
+      lines.push(...buildExportLine(docConfig, exportName, apiCreationCode));
+    }
+  }
+
+  return lines;
+};
+
+/**
+ * 生成文档桶文件内容
+ */
+const generateDocBucketContent = (docConfig: ConfigDocOptions, apiModuleMap: Map<string, Required<ApiCtx>[]>): string[] => {
+  const content: string[] = [];
+  const docBucketFilename = getFullPath(docConfig.output, `index.${docConfig.outputType}`);
+
+  content.push(`import * as ${API_DEFINE_DIR_NAME} from './${API_DEFINE_DIR_NAME}/index.${docConfig.outputType}';`);
+  const wrapApiName = toVariableNameCamelCase("create", docConfig.codeMode, docConfig.exportMode);
+  content.push(`import { ${wrapApiName} } from "${LIB_NAME}/browser";\n`);
+
+  if (docConfig.exportMode === "module") {
+    content.push(...generateModuleExports(docConfig, apiModuleMap));
+  }
+
+  if (docConfig.exportMode === "api") {
+    content.push(...generateApiExports(docConfig, apiModuleMap));
+  }
+
+  if (docConfig.exportMode === "doc") {
+    const exportName = toVariableNameCamelCase(docConfig.prefix, docConfig.name);
+    content.push(getDocNote(apiModuleMap));
+    const apiCreationCode = buildApiCreationCode(docConfig, API_DEFINE_DIR_NAME);
+    content.push(...buildExportLine(docConfig, exportName, apiCreationCode));
+  }
+
+  if (docConfig.exportMode === "default") {
+    content.push(getDocNote(apiModuleMap));
+    content.push(`export default ${buildApiCreationCode(docConfig, API_DEFINE_DIR_NAME)};`);
+  }
+
+  content.unshift(...toValue(docConfig.fileHeader, docBucketFilename, "bucket"));
+  content.unshift(...DEFAULT_FILE_HEADER);
+  content.push(...toValue(docConfig.fileFooter, docBucketFilename, "bucket"));
+
+  return content;
+};
+
+/**
+ * 生成 API 请求代码
+ * @param apiDoc  API 文档
+ * @param apiModuleMap  API 模块映射
+ * @param docConfig 文档配置
+ * @returns 生成结果
+ */
+export const generateApi = (apiDoc: OpenAPIObject, apiModuleMap: Map<string, Required<ApiCtx>[]>, docConfig: ConfigDocOptions): DocApiResult => {
+  let moduleTotal = 0;
+  let apiTotal = 0;
+  let fileTotal = 0;
+
+  const saveDir = getFullPath(docConfig.output);
+  if (existsSync(saveDir)) {
+    rmSync(saveDir, { recursive: true, force: true });
+  }
+
+  for (const [moduleName, apiModuleList] of apiModuleMap) {
+    const outputPath = getFullPath(docConfig.output, API_DEFINE_DIR_NAME, `${moduleName}.${docConfig.outputType}`);
+    const fileContent = generateModuleFileContent(moduleName, apiModuleList, docConfig);
+    mkdirSync(dirname(outputPath), { recursive: true });
+    writeFile(outputPath, fileContent.join("\n"), { encoding: "utf-8", flag: "w", flush: true });
+    moduleTotal++;
+    apiTotal += apiModuleList.length;
+    fileTotal++;
+  }
+  const apiBucketFilename = getFullPath(docConfig.output, API_DEFINE_DIR_NAME, `index.${docConfig.outputType}`);
+  const apiBucketContent = generateApiBucketContent(apiModuleMap, docConfig);
+  mkdirSync(dirname(apiBucketFilename), { recursive: true });
+  writeFile(apiBucketFilename, apiBucketContent.join("\n"), { encoding: "utf-8", flag: "w", flush: true });
+  fileTotal++;
+
+  const docBucketFilename = getFullPath(docConfig.output, `index.${docConfig.outputType}`);
+  const docBucketContent = generateDocBucketContent(docConfig, apiModuleMap);
+  mkdirSync(dirname(docBucketFilename), { recursive: true });
+  writeFile(docBucketFilename, docBucketContent.join("\n"), { encoding: "utf-8", flag: "w", flush: true });
+  fileTotal++;
+
+  return { moduleTotal, apiTotal, outputPath: docConfig.output, fileTotal };
+};

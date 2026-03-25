@@ -1,0 +1,27 @@
+packages:
+  - "packages/*"
+allowBuilds:
+  core-js: set this to true or false
+
+catalog:
+  "@arethetypeswrong/cli": "^0.18.2"
+  "@changesets/cli": "^2.30.0"
+  "@rsbuild/core": "^1.7.3"
+  "@types/node": "^25.5.0"
+  "console-table-printer": "^2.15.0"
+  "es-toolkit": "^1.45.1"
+  "husky": "^9.1.7"
+  "is-ci": "^4.1.0"
+  "lint-staged": "^16.4.0"
+  "openapi3-ts": "^4.5.0"
+  "oxfmt": "^0.41.0"
+  "picocolors": "^1.1.1"
+  "publint": "^0.3.18"
+  "tsdown": "^0.21.4"
+  "turbo": "^2.8.20"
+  "typescript": "^6.0.2"
+  "unconfig": "^7.5.0"
+  "vite": "^8.0.2"
+  "vitest": "^4.1.1"
+  "unplugin": "^3.0.0"
+  "axios": "^1.13.6"
