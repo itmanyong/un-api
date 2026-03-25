@@ -20,7 +20,8 @@
   "files": [
     "build",
     "../../docs",
-    "../../README.md"
+    "../../README.md",
+    "./CHANGELOG.md"
   ],
   "type": "module",
   "types": "./build/index.d.mts",
