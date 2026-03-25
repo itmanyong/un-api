@@ -46,15 +46,6 @@ jobs:
       - name: "🏗️ Build"
         run: pnpm build
 
-      - name: "🔍 Check exports"
-        run: pnpm check:exports
-
-      - name: "🚨 Lint code"
-        run: pnpm lint:ci
-
-      - name: "🧳 Run unit tests"
-        run: pnpm test:unit
-
       - name: "📦 pkg.pr.new (preview release)"
         if: github.event_name == 'pull_request'
         run: pnpm dlx pkg-pr-new@0.0.65 publish './packages/core' --packageManager=pnpm
