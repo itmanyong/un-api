@@ -2,6 +2,7 @@
   "private": false,
   "description": "一个自动根据文档构建API请求的解放双手工具库",
   "license": "MIT",
+  "readme": "./packages/core/README.md",
   "author": {
     "name": "itmanyong",
     "email": "itmanyong@gmail.com"
