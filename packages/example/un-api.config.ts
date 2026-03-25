@@ -1,4 +1,4 @@
-import { defineConfig } from "un-api";
+import { defineConfig } from "@itmanyong/un-api";
 
 export default defineConfig({
   docs: [

@@ -87,7 +87,7 @@ export interface ConfigOptions extends ConfigDocOptionsCommon {
 ### 最小配置
 
 ```typescript
-import { defineConfig } from "un-api";
+import { defineConfig } from "@itmanyong/un-api";
 
 export default defineConfig({
   docs: [
@@ -438,7 +438,7 @@ export default defineConfig({
 
 ```typescript
 // un-api.config.ts
-import { defineConfig } from 'un-api';
+import { defineConfig } from '@itmanyong/un-api';
 
 export default defineConfig({
   docs: [

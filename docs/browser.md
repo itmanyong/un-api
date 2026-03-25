@@ -24,7 +24,7 @@ export {
 Memory 模式将 API 定义存储在内存中，返回普通函数对象，适用于测试和简单场景。
 
 ```typescript
-import { createMemoryApi, createMemoryModule, createMemoryDoc } from "un-api/browser";
+import { createMemoryApi, createMemoryModule, createMemoryDoc } from "@itmanyong/un-api/browser";
 
 // 创建单个 API
 const api = createMemoryApi({
@@ -52,7 +52,7 @@ const apiDoc = createMemoryDoc({
 Proxy 模式使用 JavaScript Proxy 动态生成 API 调用代码，支持 Vue 响应式跳过标记，适用于生产环境。
 
 ```typescript
-import { createProxyApi, createProxyModule, createProxyDoc } from "un-api/browser";
+import { createProxyApi, createProxyModule, createProxyDoc } from "@itmanyong/un-api/browser";
 
 // 创建单个 API
 const api = createProxyApi({

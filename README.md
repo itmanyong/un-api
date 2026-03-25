@@ -30,7 +30,7 @@ OpenAPI 3 规范 API 构建器 - 自动从 OpenAPI 文档生成类型安全的 A
 ### 安装
 
 ```bash
-pnpm add un-api
+pnpm add @itmanyong/un-api
 ```
 
 ### 配置
@@ -38,7 +38,7 @@ pnpm add un-api
 项目根目录下创建 `un-api.config.ts`：
 
 ```typescript
-import { defineConfig } from "un-api";
+import { defineConfig } from "@itmanyong/un-api";
 
 export default defineConfig({
   // ...公共doc配置(排除name、url外的所有属性都可在根对象配置(docs同级))
@@ -57,7 +57,7 @@ export default defineConfig({
 // vite.config.ts
 import { defineConfig } from "vite";
 // 所有平台插件命名=>平台名称+Plugin关键字
-import { vitePlugin } from "un-api";
+import { vitePlugin } from "@itmanyong/un-api";
 
 export default defineConfig({
   plugins: [vitePlugin()],

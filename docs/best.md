@@ -5,7 +5,7 @@
 ### 安装
 
 ```bash
-pnpm add un-api
+pnpm add @itmanyong/un-api
 ```
 
 ### 平台接入
@@ -17,7 +17,7 @@ pnpm add un-api
 ```typescript
 // ...其他导入
 // 导入对应平台内置插件
-import { vitePlugin } from "un-api";
+import { vitePlugin } from "@itmanyong/un-api";
 
 export default defineConfig({
   plugins: [
@@ -38,7 +38,7 @@ export default defineConfig({
 });
 
 // 未内置可自行实现对应平台插件-插件只需执行setupRun方法即可
-// import { setupRun } from 'un-api'
+// import { setupRun } from '@itmanyong/un-api'
 ```
 
 - `tsconfig.json`路径别名配置
@@ -70,7 +70,7 @@ export default defineConfig({
 
 ```typescript
 // 导入`defineConfig`配置函数
-import { defineConfig } from "un-api";
+import { defineConfig } from "@itmanyong/un-api";
 
 export default defineConfig({
   // ...其余公共配置(除name、url字段其他docs内字段均可配置，优先级低于文档内联配置)

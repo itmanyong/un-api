@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "example",
+  "name": "@itmanyong/example",
   "version": "0.0.1",
   "description": "Demo example that imports a local package",
   "author": {
@@ -12,7 +12,7 @@
     "dev": "vite dev"
   },
   "dependencies": {
-    "un-api": "workspace:*",
+    "@itmanyong/un-api": "workspace:*",
     "vite": "catalog:",
     "axios":"catalog:"
   }

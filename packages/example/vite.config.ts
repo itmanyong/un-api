@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import { vitePlugin } from "un-api";
+import { vitePlugin } from "@itmanyong/un-api";
 
 export default defineConfig({
   plugins: [vitePlugin()],

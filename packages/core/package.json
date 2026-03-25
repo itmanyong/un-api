@@ -1,5 +1,5 @@
 {
-  "name": "un-api",
+  "name": "@itmanyong/un-api",
   "version": "0.0.1",
   "private": false,
   "description": "一个自动根据文档构建API请求的解放双手工具库",

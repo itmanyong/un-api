@@ -208,7 +208,7 @@ dts: {
 ### 配置文件
 
 ```typescript
-import { defineConfig } from "un-api";
+import { defineConfig } from "@itmanyong/un-api";
 
 export default defineConfig({
   docs: [

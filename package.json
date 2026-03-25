@@ -18,7 +18,7 @@
     "stop": "node ./scripts/stop-node-process.js",
     "changeset": "changeset",
     "version-packages": "changeset version && pnpm install",
-    "release": "pnpm build && pnpm -r --filter='un-api' exec -- npx npm@11 publish --no-git-checks --provenance"
+    "release": "pnpm build && pnpm -r --filter='@itmanyong/un-api' && pnpm --filter @itmanyong/un-api publish --access=public --no-git-checks"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "catalog:",

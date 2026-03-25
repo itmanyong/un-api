@@ -20,7 +20,7 @@ un-api 提供了多种主流构建平台的内置插件，支持开箱即用：
 ```typescript
 // vite.config.ts
 import { defineConfig } from 'vite';
-import { vitePlugin } from 'un-api';
+import { vitePlugin } from '@itmanyong/un-api';
 
 export default defineConfig({
   plugins: [
@@ -34,7 +34,7 @@ export default defineConfig({
 ```typescript
 // rsbuild.config.ts
 import { defineConfig } from '@rsbuild/core';
-import { rsbuildPlugin } from 'un-api';
+import { rsbuildPlugin } from '@itmanyong/un-api';
 
 export default defineConfig({
   plugins: [
@@ -47,7 +47,7 @@ export default defineConfig({
 
 ```typescript
 // rollup.config.js
-import { rollupPlugin } from 'un-api';
+import { rollupPlugin } from '@itmanyong/un-api';
 
 export default {
   plugins: [
@@ -60,7 +60,7 @@ export default {
 
 ```typescript
 // webpack.config.js
-const { webpackPlugin } = require('un-api');
+const { webpackPlugin } = require('@itmanyong/un-api');
 
 module.exports = {
   plugins: [
@@ -73,7 +73,7 @@ module.exports = {
 
 ```typescript
 // rspack.config.js
-const { rspackPlugin } = require('un-api');
+const { rspackPlugin } = require('@itmanyong/un-api');
 
 module.exports = {
   plugins: [
@@ -86,7 +86,7 @@ module.exports = {
 
 ```typescript
 // esbuild.config.js
-const { esbuildPlugin } = require('un-api');
+const { esbuildPlugin } = require('@itmanyong/un-api');
 
 require('esbuild').build({
   plugins: [
@@ -100,7 +100,7 @@ require('esbuild').build({
 ```typescript
 // farm.config.ts
 import { defineConfig } from '@farmfe/core';
-import { farmPlugin } from 'un-api';
+import { farmPlugin } from '@itmanyong/un-api';
 
 export default defineConfig({
   plugins: [
@@ -113,7 +113,7 @@ export default defineConfig({
 
 ```typescript
 // bun.config.ts (如果支持)
-import { bunPlugin } from 'un-api';
+import { bunPlugin } from '@itmanyong/un-api';
 
 export default {
   plugins: [
@@ -136,7 +136,7 @@ export default {
 
 ```typescript
 // 导入核心执行入口
-import { setupRun } from "un-api";
+import { setupRun } from "@itmanyong/un-api";
 
 // 在平台插件或适当时机直接调用
 setupRun(options);
@@ -146,7 +146,7 @@ setupRun(options);
 
 ```typescript
 // 例如在自定义的构建脚本中
-import { setupRun } from 'un-api';
+import { setupRun } from '@itmanyong/un-api';
 
 async function build() {
   // 在构建开始前生成 API 代码
@@ -162,7 +162,7 @@ async function build() {
 
 ```typescript
 // 在开发服务器中集成监听
-import { setupRun } from 'un-api';
+import { setupRun } from '@itmanyong/un-api';
 
 class UnApiPlugin {
   constructor(options = {}) {
@@ -245,7 +245,7 @@ setupRun({
 
 ```typescript
 // 正确
-import { vitePlugin } from 'un-api';
+import { vitePlugin } from '@itmanyong/un-api';
 ```
 
 ### 生成的文件未更新
