@@ -47,10 +47,13 @@ jobs:
         id: test
         continue-on-error: true
         run: |
-          if pnpm run test 2>/dev/null; then
+          if grep -q '"test"' package.json; then
+            echo "::group::Running tests"
+            pnpm run test
+            echo "::endgroup::"
             echo "::notice::✓ Tests passed successfully"
           else
-            echo "::warning::No test script or tests failed"
+            echo "::notice::Skipping tests (no test script defined in package.json)"
           fi
 
       - name: Post failure summary
