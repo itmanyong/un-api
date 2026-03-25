@@ -44,6 +44,6 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .DS_Store
 
 # other
-/packages/example/.un-api
-/packages/example/src/apis
-/packages/example/types
+packages/example/.un-api
+packages/example/src/apis
+packages/example/types

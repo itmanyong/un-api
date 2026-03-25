@@ -45,7 +45,7 @@ export const toVariableNameCamelCase = (...args: string[]): string => {
  * @param str 原始字符串
  * @returns 首字母小写后的字符串
  */
-const capitalizeLower = (str: string): string => {
+export const capitalizeLower = (str: string): string => {
   if (/^[A-Z]/.test(str)) {
     return str.charAt(0).toLowerCase() + str.slice(1);
   }

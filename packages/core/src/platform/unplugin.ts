@@ -1,7 +1,7 @@
-import type { PluginOptions } from "@/types";
+import type { PluginOptions } from "../types";
 import type { UnpluginFactory, UnpluginInstance } from "unplugin";
-import { LIB_NAME } from "@/shared";
-import { setupRun } from "@/core";
+import { LIB_NAME } from "../shared";
+import { setupRun } from "../core";
 import { createUnplugin } from "unplugin";
 
 const unpluginFactory: UnpluginFactory<PluginOptions | undefined> = (options?: PluginOptions) => ({

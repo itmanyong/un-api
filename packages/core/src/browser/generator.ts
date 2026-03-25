@@ -18,7 +18,7 @@ interface PropertyDescriptorConfig {
  * @param propertyDescriptorMap 自定义属性描述符
  * @returns 带有标记属性的对象对象
  */
-const createObject = <T extends object>(value: T, propertyFields?: RecordType, propertyDescriptorMap?: RecordType<PropertyDescriptorConfig>): T => {
+export const createObject = <T extends object>(value: T, propertyFields?: RecordType, propertyDescriptorMap?: RecordType<PropertyDescriptorConfig>): T => {
   const descriptorMap = Object.entries({
     [API_BUILDER_KEY]: true,
     ...(propertyFields ?? {}),

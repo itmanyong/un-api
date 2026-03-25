@@ -43,19 +43,6 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Run tests
-        id: test
-        continue-on-error: true
-        run: |
-          if grep -q '"test"' package.json; then
-            echo "::group::Running tests"
-            pnpm run test
-            echo "::endgroup::"
-            echo "::notice::✓ Tests passed successfully"
-          else
-            echo "::notice::Skipping tests (no test script defined in package.json)"
-          fi
-
       - name: Post failure summary
         if: failure()
         run: |

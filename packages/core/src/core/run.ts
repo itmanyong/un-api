@@ -1,6 +1,6 @@
 import pc from "picocolors";
 import { Table } from "console-table-printer";
-import type { DocResult, PluginOptions } from "@/types";
+import type { DocResult, PluginOptions } from "../types";
 import { loadCacheConfig, setupConfig } from "./config";
 import { setupDoc } from "./doc";
 import { LIB_NAME, formatDuration, generateUniqueKey, getFullPath } from "@/shared";
@@ -49,7 +49,7 @@ const printSummaryTable = (results: DocResult[]): void => {
     耗时: formatDuration(totalMs),
   });
   // 清除之前的日志
-  // console.clear();
+  console.clear();
   console.log();
   table.printTable();
   console.log();

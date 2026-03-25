@@ -1,7 +1,7 @@
 {
-  "private": true,
   "name": "@itmanyong/example",
   "version": "0.0.1",
+  "private": true,
   "description": "Demo example that imports a local package",
   "author": {
     "name": "itmanyong",
@@ -9,11 +9,13 @@
   },
   "main": "./src/index.ts",
   "scripts": {
-    "dev": "vite dev"
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@itmanyong/un-api": "workspace:*",
-    "vite": "catalog:",
-    "axios": "catalog:"
+    "axios": "catalog:",
+    "vite": "catalog:"
   }
 }
