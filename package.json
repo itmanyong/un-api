@@ -2,7 +2,6 @@
   "private": false,
   "description": "一个自动根据文档构建API请求的解放双手工具库",
   "license": "MIT",
-  "readme": "./packages/core/README.md",
   "author": {
     "name": "itmanyong",
     "email": "itmanyong@gmail.com"
@@ -22,7 +21,7 @@
     "stop": "node ./scripts/stop-node-process.js",
     "changeset": "changeset",
     "version-packages": "changeset version && pnpm install",
-    "release": "pnpm build && pnpm --filter @itmanyong/un-api publish --access=public --no-git-checks"
+    "release": "node ./scripts/release.js"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "catalog:",
