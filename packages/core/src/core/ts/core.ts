@@ -1,6 +1,6 @@
 import type { OpenAPIObject, ParameterObject, ReferenceObject, SchemaObject } from "openapi3-ts/oas31";
 import type { DocTsResult, ConfigDocOptions, ApiCtx } from "@/types";
-import { capitalizeUpper, getFullPath, LIB_NAME, mergeFileRows, toValue, toVariableNameCamelCase } from "@/shared";
+import { capitalizeUpper, getFullPath, LIB_NAME, mergeFileRows, PKG_NAME, toValue, toVariableNameCamelCase } from "@/shared";
 import { createSchemaToTs } from "./shared";
 import { getApiNote, getDocNote, getModuleNote, getTypedObjectWithNested, getTypedParams } from "@/core/note";
 import { API_TYPE_GENERATE_NAME } from "@/core/config";
@@ -170,7 +170,7 @@ export const generateTsType = (apiDoc: OpenAPIObject, apiModuleMap: Map<string, 
   };
 
   const fileMap = new Map<string, string[]>([
-    ["index.d.ts", [`import * as tsTypes from './types';`, `import type { ${API_TYPE_GENERATE_NAME} } from '${LIB_NAME}';`]],
+    ["index.d.ts", [`import * as tsTypes from './types';`, `import type { ${API_TYPE_GENERATE_NAME} } from '${PKG_NAME}';`]],
     ["types/index.d.ts", [`export { ${docNamespace}Models } from './models';`]],
     ["types/models.d.ts", []],
   ]);

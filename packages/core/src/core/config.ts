@@ -1,6 +1,6 @@
 import { loadConfigSync } from "unconfig";
 import type { ConfigDocOptions, ConfigOptions, PluginOptions, RecordType } from "@/types";
-import { getFullPath, LIB_NAME } from "../shared";
+import { getFullPath, LIB_NAME, PKG_NAME } from "../shared";
 import { cloneDeep, isPlainObject, isString, merge } from "es-toolkit";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname } from "path";

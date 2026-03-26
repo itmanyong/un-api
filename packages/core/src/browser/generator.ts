@@ -1,4 +1,4 @@
-import { LIB_NAME } from "@/shared/constants";
+import { LIB_NAME } from "@/shared";
 import type { ApiRequesterType, ApiRequesterOptions, RecordType } from "@/types";
 
 /** 标记属性键名 */

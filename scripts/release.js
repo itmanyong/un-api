@@ -3,22 +3,23 @@
  */
 import fs from 'fs'
 import path from 'path'
-import { spawn } from 'child_process'
+import { spawn, spawnSync } from 'child_process'
 /**
  * 复制文档到发布包目录
- * @param {string} name - 要复制的文件或目录名称
+ * @param {string} srcPath - 要复制的文件或目录路径
+ * @param {string} destPath - 目标路径
+ * @returns {Promise} - 复制操作的Promise对象
  */
-const copyPkgPath = (name) => {
+const copyPkgPath = (srcPath, destPath) => {
     return new Promise((resolve, reject) => {
-        const srcPath = path.resolve(process.cwd(), name)
-        const destPath = path.resolve(process.cwd(), './packages/core/', name)
-        if (fs.existsSync(srcPath)) {
-            fs.cp(srcPath, destPath, {
+        const srcFullPath = path.resolve(process.cwd(), srcPath)
+        const destFullPath = path.resolve(process.cwd(), destPath)
+        if (fs.existsSync(srcFullPath)) {
+            fs.cp(srcFullPath, destFullPath, {
                 recursive: true,
                 force: true
             }, (err) => {
                 if (err) {
-                    console.error(`❌ 复制 ${name} 失败:`, err)
                     reject(err)
                 } else {
                     resolve()
@@ -57,52 +58,34 @@ const deletePkgPath = (name) => {
  * 开始发布包
  */
 const run = async () => {
-    // 输入设置版本号
-    const version = process.argv[2]
-    if (!version) {
-        console.error('❌ 请提供版本号 例如: npm run release 1.0.0')
-        process.exit(1)
+    // 生成CHANGELOG.md
+    const changesetResult = spawnSync('pnpm', ['changeset', 'version'], { stdio: 'inherit' })
+    if (!!changesetResult.status) {
+        console.error(`❌ 生成更新日志失败，退出码: ${changesetResult.status} ${changesetResult.stderr.toString()}`)
+        return;
     }
-    // 更新package.json版本号
-    const pkgPath = path.resolve(process.cwd(), './packages/core/package.json')
-    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
-    pkg.version = version
-    fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), 'utf-8')
-    // 复制文档
-    const dirs = []
-    const fiels = ["README.md", "CHANGELOG.md"]
-    // 删除发布包目录文档
-    await Promise.all([
-        ...dirs.map(dir => deletePkgPath(dir)),
-        ...fiels.map(file => deletePkgPath(file))
-    ])
-    // 复制文档到发布包目录
-    await Promise.all([
-        ...dirs.map(dir => copyPkgPath(dir)),
-        ...fiels.map(file => copyPkgPath(file))
-    ])
-
-    // 执行发布包命令
-    setTimeout(() => {
-        spawn('pnpm', ['build'], { stdio: 'inherit' }).on('close', (code) => {
-            if (code === 0) {
-                // 使用 spawn 执行命令
-                spawn('pnpm', ['--filter', '@itmanyong/un-api', 'publish', '--access=public', '--no-git-checks'], { stdio: 'inherit' }).on('close', (publishCode) => {
-                    if (publishCode === 0) {
-                        console.log('✔️ 发布包成功')
-                        setTimeout(() => {
-                            // dirs.map(dir => deletePkgPath(dir))
-                            // fiels.map(file => deletePkgPath(file))
-                        }, 1e3)
-                    } else {
-                        console.error(`❌ 发布包失败，退出码: ${publishCode}`)
-                    }
-                })
-            } else {
-                console.error(`❌ 构建失败，退出码: ${code}`)
-            }
-        })
-    }, 5e2)
+    console.log('✔️ 生成 CHANGELOG.md 成功')
+    // 复制CHANGELOG.md
+    const cpChangelogResult = await copyPkgPath("./packages/core/CHANGELOG.md", "./CHANGELOG.md")
+    if (!!cpChangelogResult) {
+        console.error(`❌ 复制 CHANGELOG.md 失败 :`, cpChangelogResult)
+        return;
+    }
+    console.log('✔️ 复制 CHANGELOG.md 成功')
+    // 复制README.md
+    const cpResult = await copyPkgPath("./README.md", "./packages/core/README.md")
+    if (!!cpResult) {
+        console.error(`❌ 复制 README.md 文档失败 :`, cpResult)
+        return;
+    }
+    console.log('✔️ 复制 README.md 文档成功')
+    // 发布包
+    const publishResult = spawnSync('pnpm', ['changeset', 'publish'], { stdio: 'inherit' })
+    if (!!publishResult.status) {
+        console.error(`❌ 发布包失败，退出码: ${publishResult.status} ${publishResult.stderr.toString()}`)
+        return;
+    }
+    console.log('✔️ 发布包成功')
 }
 
 

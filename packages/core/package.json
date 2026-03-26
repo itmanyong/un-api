@@ -1,6 +1,6 @@
 {
   "name": "@itmanyong/un-api",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "private": false,
   "description": "一个自动根据文档构建API请求的解放双手工具库",
   "keywords": [
@@ -44,14 +44,8 @@
   "type": "module",
   "types": "./build/index.d.mts",
   "exports": {
-    ".": {
-      "development": "./src/index.ts",
-      "default": "./build/index.mjs"
-    },
-    "./browser": {
-      "development": "./src/browser/index.ts",
-      "default": "./build/browser.mjs"
-    },
+    ".": "./build/index.mjs",
+    "./browser": "./build/browser.mjs",
     "./package.json": "./package.json"
   },
   "publishConfig": {

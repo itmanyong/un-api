@@ -7,7 +7,8 @@ export default defineConfig({
     browser: "src/browser/index.ts",
   },
   exports: {
-    devExports: "development",
+    devExports: false
+    // devExports: "development",
   },
   outDir: "build",
   format: ["esm"],

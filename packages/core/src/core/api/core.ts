@@ -1,6 +1,6 @@
 import type { OpenAPIObject } from "openapi3-ts/oas31";
 import type { ApiCtx, ConfigDocOptions, DocApiResult, RecordType } from "@/types";
-import { getFullPath, LIB_NAME, toValue, toVariableNameCamelCase } from "@/shared";
+import { getFullPath, LIB_NAME, PKG_NAME, toValue, toVariableNameCamelCase } from "@/shared";
 import { isEmptyObject, omitBy } from "es-toolkit";
 import { API_DEFINE_DIR_NAME } from "./shared";
 import { getApiNote, getDocNote, getModuleNote } from "@/core/note";
@@ -105,7 +105,7 @@ const generateDocBucketContent = (docConfig: ConfigDocOptions, apiModuleMap: Map
 
   content.push(`import * as ${API_DEFINE_DIR_NAME} from './${API_DEFINE_DIR_NAME}/index.${docConfig.outputType}';`);
   const wrapApiName = toVariableNameCamelCase("create", docConfig.codeMode, docConfig.exportMode);
-  content.push(`import { ${wrapApiName} } from "${LIB_NAME}/browser";\n`);
+  content.push(`import { ${wrapApiName} } from "${PKG_NAME}/browser";\n`);
 
   if (docConfig.exportMode === "module") {
     content.push(...generateModuleExports(docConfig, apiModuleMap));

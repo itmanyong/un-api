@@ -1,5 +1,5 @@
-// 当前文件由 @itmanyong/un-api 自动生成-非必要请勿手动修改此文件
-import * as apis from "./apis/index.ts";
+// 当前文件由 un-api 自动生成-非必要请勿手动修改此文件
+import * as apis from './apis/index.ts';
 import { createProxyModule } from "@itmanyong/un-api/browser";
 
 /**
@@ -160,7 +160,7 @@ import { createProxyModule } from "@itmanyong/un-api/browser";
  * | ins | deleteApiV1CourseResourcesItemById | /ins/api/v1/course/resources/item/{id} | DELETE | 删除 |
  * | ins | deleteApiV1AccountInfoList | /ins/api/v1/account/info/list | DELETE | 删除账号信息 |
  */
-export const apiIns = createProxyModule(apis.ins, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiIns = createProxyModule(apis.ins,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -174,7 +174,7 @@ export const apiIns = createProxyModule(apis.ins, ({ url, ...ops }) => globalThi
  * | userInfo | getGetUserInfo | /userInfo/getUserInfo | GET | 小程序获取登录用户信息 |
  * | userInfo | getGetAvaByIdById | /userInfo/getAvaById/{id} | GET | 查询指定用户头像 |
  */
-export const apiUserInfo = createProxyModule(apis.userInfo, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiUserInfo = createProxyModule(apis.userInfo,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -188,7 +188,7 @@ export const apiUserInfo = createProxyModule(apis.userInfo, ({ url, ...ops }) =>
  * | systemMessage | getItemById | /systemMessage/item/{id} | GET | 查询 |
  * | systemMessage | deleteItemById | /systemMessage/item/{id} | DELETE | 删除 |
  */
-export const apiSystemMessage = createProxyModule(apis.systemMessage, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiSystemMessage = createProxyModule(apis.systemMessage,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -202,7 +202,7 @@ export const apiSystemMessage = createProxyModule(apis.systemMessage, ({ url, ..
  * | surveysParticipant | getItemById | /surveysParticipant/item/{id} | GET | 查询 |
  * | surveysParticipant | deleteItemById | /surveysParticipant/item/{id} | DELETE | 删除 |
  */
-export const apiSurveysParticipant = createProxyModule(apis.surveysParticipant, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiSurveysParticipant = createProxyModule(apis.surveysParticipant,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -224,7 +224,7 @@ export const apiSurveysParticipant = createProxyModule(apis.surveysParticipant, 
  * | surveys | getCategoryGetChildBranch | /surveys/category/getChildBranch | GET | 获取子节点数据 |
  * | surveys | deleteCategoryItemById | /surveys/category/item/{id} | DELETE | 删除 |
  */
-export const apiSurveys = createProxyModule(apis.surveys, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiSurveys = createProxyModule(apis.surveys,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -236,7 +236,7 @@ export const apiSurveys = createProxyModule(apis.surveys, ({ url, ...ops }) => g
  * | role | deleteList | /role/list | DELETE | 删除角色 |
  * | role | deleteItemById | /role/item/{id} | DELETE | 删除角色 |
  */
-export const apiRole = createProxyModule(apis.role, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiRole = createProxyModule(apis.role,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -251,7 +251,7 @@ export const apiRole = createProxyModule(apis.role, ({ url, ...ops }) => globalT
  * | questions | getItemById | /questions/item/{id} | GET | 查询 |
  * | questions | deleteItemById | /questions/item/{id} | DELETE | 删除 |
  */
-export const apiQuestions = createProxyModule(apis.questions, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiQuestions = createProxyModule(apis.questions,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -265,7 +265,7 @@ export const apiQuestions = createProxyModule(apis.questions, ({ url, ...ops }) 
  * | precondition | getItemById | /precondition/item/{id} | GET | 查询 |
  * | precondition | deleteItemById | /precondition/item/{id} | DELETE | 删除 |
  */
-export const apiPrecondition = createProxyModule(apis.precondition, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiPrecondition = createProxyModule(apis.precondition,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -279,7 +279,7 @@ export const apiPrecondition = createProxyModule(apis.precondition, ({ url, ...o
  * | options | getItemById | /options/item/{id} | GET | 查询 |
  * | options | deleteItemById | /options/item/{id} | DELETE | 删除 |
  */
-export const apiOptions = createProxyModule(apis.options, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiOptions = createProxyModule(apis.options,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -292,7 +292,7 @@ export const apiOptions = createProxyModule(apis.options, ({ url, ...ops }) => g
  * | menus | deleteList | /menus/list | DELETE | 删除菜单 |
  * | menus | deleteItemById | /menus/item/{id} | DELETE | 删除 |
  */
-export const apiMenus = createProxyModule(apis.menus, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiMenus = createProxyModule(apis.menus,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -306,7 +306,7 @@ export const apiMenus = createProxyModule(apis.menus, ({ url, ...ops }) => globa
  * | levelConfig | getItemById | /levelConfig/item/{id} | GET | 查询 |
  * | levelConfig | deleteItemById | /levelConfig/item/{id} | DELETE | 删除 |
  */
-export const apiLevelConfig = createProxyModule(apis.levelConfig, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiLevelConfig = createProxyModule(apis.levelConfig,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -318,7 +318,7 @@ export const apiLevelConfig = createProxyModule(apis.levelConfig, ({ url, ...ops
  * | institution | deleteList | /institution/list | DELETE | 批量删除 |
  * | institution | deleteItemById | /institution/item/{id} | DELETE | 删除 |
  */
-export const apiInstitution = createProxyModule(apis.institution, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiInstitution = createProxyModule(apis.institution,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -332,7 +332,7 @@ export const apiInstitution = createProxyModule(apis.institution, ({ url, ...ops
  * | informationQuestions | getPage | /informationQuestions/page | GET | 多条件组合分页查询 |
  * | informationQuestions | getItemById | /informationQuestions/item/{id} | GET | 查询 |
  */
-export const apiInformationQuestions = createProxyModule(apis.informationQuestions, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiInformationQuestions = createProxyModule(apis.informationQuestions,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -346,7 +346,7 @@ export const apiInformationQuestions = createProxyModule(apis.informationQuestio
  * | informationCollection | getItemById | /informationCollection/item/{id} | GET | 查询 |
  * | informationCollection | deleteItemById | /informationCollection/item/{id} | DELETE | 删除 |
  */
-export const apiInformationCollection = createProxyModule(apis.informationCollection, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiInformationCollection = createProxyModule(apis.informationCollection,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -360,7 +360,7 @@ export const apiInformationCollection = createProxyModule(apis.informationCollec
  * | feedback | getItemById | /feedback/item/{id} | GET | 查询 |
  * | feedback | deleteItemById | /feedback/item/{id} | DELETE | 删除 |
  */
-export const apiFeedback = createProxyModule(apis.feedback, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiFeedback = createProxyModule(apis.feedback,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -372,7 +372,7 @@ export const apiFeedback = createProxyModule(apis.feedback, ({ url, ...ops }) =>
  * | doctor | deleteList | /doctor/list | DELETE | 批量删除 |
  * | doctor | deleteItemById | /doctor/item/{id} | DELETE | 删除 |
  */
-export const apiDoctor = createProxyModule(apis.doctor, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiDoctor = createProxyModule(apis.doctor,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -389,7 +389,7 @@ export const apiDoctor = createProxyModule(apis.doctor, ({ url, ...ops }) => glo
  * | dict | deleteDataList | /dict/data/list | DELETE | 删除字典数据 |
  * | dict | deleteDataItemById | /dict/data/item/{id} | DELETE | 删除字典数据 |
  */
-export const apiDict = createProxyModule(apis.dict, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiDict = createProxyModule(apis.dict,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -409,7 +409,7 @@ export const apiDict = createProxyModule(apis.dict, ({ url, ...ops }) => globalT
  * | course | deleteResourcesItemById | /course/resources/item/{id} | DELETE | 删除 |
  * | course | deleteItemById | /course/item/{id} | DELETE | 删除课程 |
  */
-export const apiCourse = createProxyModule(apis.course, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiCourse = createProxyModule(apis.course,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -427,7 +427,7 @@ export const apiCourse = createProxyModule(apis.course, ({ url, ...ops }) => glo
  * | config | getGetBasicInfo | /config/getBasicInfo | GET | 基础信息查询 |
  * | config | getAllEnums | /config/allEnums | GET | 获取所有枚举信息 |
  */
-export const apiConfig = createProxyModule(apis.config, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiConfig = createProxyModule(apis.config,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -441,7 +441,7 @@ export const apiConfig = createProxyModule(apis.config, ({ url, ...ops }) => glo
  * | category | getItemById | /category/item/{id} | GET | 查询 |
  * | category | deleteItemById | /category/item/{id} | DELETE | 删除 |
  */
-export const apiCategory = createProxyModule(apis.category, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiCategory = createProxyModule(apis.category,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -455,7 +455,7 @@ export const apiCategory = createProxyModule(apis.category, ({ url, ...ops }) =>
  * | banner | getItemById | /banner/item/{id} | GET | 查询 |
  * | banner | deleteItemById | /banner/item/{id} | DELETE | 删除 |
  */
-export const apiBanner = createProxyModule(apis.banner, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiBanner = createProxyModule(apis.banner,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -470,7 +470,7 @@ export const apiBanner = createProxyModule(apis.banner, ({ url, ...ops }) => glo
  * | auditLog | deleteItemById | /auditLog/item/{id} | DELETE | 删除审核 |
  * | auditLog | getGetPassword | /auditLog/getPassword | GET | 查看账号密码 |
  */
-export const apiAuditLog = createProxyModule(apis.auditLog, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiAuditLog = createProxyModule(apis.auditLog,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -485,7 +485,7 @@ export const apiAuditLog = createProxyModule(apis.auditLog, ({ url, ...ops }) =>
  * | article | getItemById | /article/item/{id} | GET | 查询 |
  * | article | deleteItemById | /article/item/{id} | DELETE | 删除 |
  */
-export const apiArticle = createProxyModule(apis.article, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiArticle = createProxyModule(apis.article,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -499,7 +499,7 @@ export const apiArticle = createProxyModule(apis.article, ({ url, ...ops }) => g
  * | answers | getItemById | /answers/item/{id} | GET | 查询 |
  * | answers | deleteItemById | /answers/item/{id} | DELETE | 删除 |
  */
-export const apiAnswers = createProxyModule(apis.answers, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiAnswers = createProxyModule(apis.answers,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -513,7 +513,7 @@ export const apiAnswers = createProxyModule(apis.answers, ({ url, ...ops }) => g
  * | answerScoreRanges | getItemById | /answerScoreRanges/item/{id} | GET | 查询 |
  * | answerScoreRanges | deleteItemById | /answerScoreRanges/item/{id} | DELETE | 删除 |
  */
-export const apiAnswerScoreRanges = createProxyModule(apis.answerScoreRanges, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiAnswerScoreRanges = createProxyModule(apis.answerScoreRanges,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -528,7 +528,7 @@ export const apiAnswerScoreRanges = createProxyModule(apis.answerScoreRanges, ({
  * | announcement | getItemById | /announcement/item/{id} | GET | 查询 |
  * | announcement | deleteItemById | /announcement/item/{id} | DELETE | 删除 |
  */
-export const apiAnnouncement = createProxyModule(apis.announcement, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiAnnouncement = createProxyModule(apis.announcement,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -544,7 +544,7 @@ export const apiAnnouncement = createProxyModule(apis.announcement, ({ url, ...o
  * | account | getGetAccountInfo | /account/getAccountInfo | GET | 获取登录账号信息 |
  * | account | deleteList | /account/list | DELETE | 删除账号信息 |
  */
-export const apiAccount = createProxyModule(apis.account, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiAccount = createProxyModule(apis.account,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -552,7 +552,7 @@ export const apiAccount = createProxyModule(apis.account, ({ url, ...ops }) => g
  * | logInfo | getPage | /logInfo/page | GET | 多条件组合分页查询 |
  * | logInfo | getItemById | /logInfo/item/{id} | GET | 查询日志 |
  */
-export const apiLogInfo = createProxyModule(apis.logInfo, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiLogInfo = createProxyModule(apis.logInfo,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -560,7 +560,7 @@ export const apiLogInfo = createProxyModule(apis.logInfo, ({ url, ...ops }) => g
  * | im | getLink | /im/link | GET | im连接 |
  * | im | getInfo | /im/info | GET | 当前登录信息 |
  */
-export const apiIm = createProxyModule(apis.im, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiIm = createProxyModule(apis.im,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
@@ -570,16 +570,16 @@ export const apiIm = createProxyModule(apis.im, ({ url, ...ops }) => globalThis.
  * | file | postChunk | /file/chunk | POST | 分片上传 |
  * | file | getDownload | /file/download | GET | 下载文件 |
  */
-export const apiFile = createProxyModule(apis.file, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiFile = createProxyModule(apis.file,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
  * | user | getCollectionPage | /user/collection/page | GET | 分页查询 |
  */
-export const apiUser = createProxyModule(apis.user, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiUser = createProxyModule(apis.user,({url,...ops})=>globalThis.fetch(url, ops));
 /**
  * | 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |
  * | --- | --- | --- | --- | --- |
  * | auth | getGetKeyByAppId | /auth/getKey/{appId} | GET | 查询密钥 |
  */
-export const apiAuth = createProxyModule(apis.auth, ({ url, ...ops }) => globalThis.fetch(url, ops));
+export const apiAuth = createProxyModule(apis.auth,({url,...ops})=>globalThis.fetch(url, ops));

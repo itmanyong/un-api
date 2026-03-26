@@ -1,8 +1,8 @@
-// 当前文件由 @itmanyong/un-api 自动生成-非必要请勿手动修改此文件
+// 当前文件由 un-api 自动生成-非必要请勿手动修改此文件
 export default {
-  getPage: {
-    url: "/logInfo/page",
-    method: "GET",
-    summary: "分页查询",
-  },
+  "getPage": {
+    "url": "/logInfo/page",
+    "method": "GET",
+    "summary": "分页查询"
+  }
 };

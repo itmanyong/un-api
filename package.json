@@ -44,7 +44,7 @@
     "clean": "node ./scripts/clean.js",
     "stop": "node ./scripts/stop-node-process.js",
     "changeset": "changeset",
-    "version-packages": "changeset version && pnpm install",
+    "changeset-version": "changeset version",
     "release": "node ./scripts/release.js"
   },
   "devDependencies": {
