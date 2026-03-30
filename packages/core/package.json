@@ -1,6 +1,6 @@
 {
   "name": "@itmanyong/un-api",
-  "version": "0.0.14",
+  "version": "0.0.16",
   "private": false,
   "description": "一个自动根据文档构建API请求的解放双手工具库",
   "keywords": [
@@ -12,7 +12,7 @@
     "esbuild-plugin-un-api",
     "farm-plugin-un-api",
     "generator-api",
-    "itemanyong",
+    "itmanyong",
     "openapi",
     "rolldown-plugin-un-api",
     "rollup-plugin-un-api",
@@ -57,8 +57,7 @@
   },
   "scripts": {
     "dev": "tsdown --watch",
-    "build": "tsdown",
-    "test": "vitest run"
+    "build": "tsdown"
   },
   "dependencies": {
     "es-toolkit": "catalog:",
