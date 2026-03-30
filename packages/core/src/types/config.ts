@@ -56,22 +56,7 @@ export interface ConfigDtsOptions {
   pathAlias: string;
 }
 
-export interface ConfigCacheOptions {
-  /**
-   * 是否启用缓存
-   * @default true
-   * @description 关闭每次都会重新生成-默认启用
-   */
-  enable: boolean;
-  /**
-   * 缓存有效时长
-   * @default 600000
-   * @description 单位`ms`-默认`600000`=10分钟
-   */
-  expireTime: number;
-}
-
-export interface ConfigDocOptions<CACHE = ConfigCacheOptions, DTS = ConfigDtsOptions> {
+export interface ConfigDocOptions<DTS = ConfigDtsOptions> {
   /**
    * 文档标识
    * @description 保持唯一性-将在生成代码中的`模块`/`函数名`/`路径别名`等地方使用
@@ -106,11 +91,6 @@ export interface ConfigDocOptions<CACHE = ConfigCacheOptions, DTS = ConfigDtsOpt
    * @description 决定生成文件的后缀名，默认`ts`
    */
   outputType: "ts" | "js";
-  /**
-   * 缓存配置
-   * @description 用于临时保存获取到的文档内容-默认path=`.${LIB_NAME}` 目录
-   */
-  cache: CACHE;
   /**
    * 生成代码模式
    * @default "proxy"
@@ -193,9 +173,7 @@ export interface ConfigDocOptions<CACHE = ConfigCacheOptions, DTS = ConfigDtsOpt
   enableMultiContentType: boolean;
 }
 
-export type ConfigDocOptionsCommon<CACHE = Partial<ConfigCacheOptions>, DTS = Partial<ConfigDtsOptions>> = Partial<
-  Omit<ConfigDocOptions<CACHE, DTS>, "name" | "url">
->;
+export type ConfigDocOptionsCommon<DTS = Partial<ConfigDtsOptions>> = Partial<Omit<ConfigDocOptions<DTS>, "name" | "url">>;
 
 export interface ConfigOptions extends ConfigDocOptionsCommon {
   docs?: (ConfigDocOptionsCommon & Pick<ConfigDocOptions, "name" | "url">)[];

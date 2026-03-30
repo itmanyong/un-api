@@ -42,7 +42,6 @@ core 模块
 ```
 setupRun()
   ├─ setupConfig()       加载和编译配置
-  ├─ loadCacheConfig()   加载缓存信息
   ├─ 筛选需要生成的配置  基于缓存判断
   ├─ setupDoc()          并发生成每个文档
   ├─ printSummaryTable() 输出生成摘要表格
@@ -215,25 +214,7 @@ export const apiUser = createProxyApi({...});
 
 ## 配置特性详解
 
-### 智能缓存机制
-
-un-api 提供了三个层级的缓存控制：
-
-1. **文档 Hash 缓存** - 记录文档内容的 hash 值
-   - 当文档内容变化时自动重新生成
-   - 避免文档内容不变时的重复生成
-
-2. **过期时间缓存** - 基于时间戳的缓存过期机制
-   ```typescript
-   cache: {
-     enable: true,
-     expireTime: 600000,  // 10分钟
-   }
-   ```
-   - 即使文档不变，超过过期时间也会重新生成
-   - 用于确保定期同步最新文档
-
-3. **选择性生成** - 支持通过 `enable` 配置启用/禁用单个文档
+1. **选择性生成** - 支持通过 `enable` 配置启用/禁用单个文档
    - `enable: true` - 启用，自动检测是否需要生成
    - `enable: false` - 禁用，跳过此文档
 

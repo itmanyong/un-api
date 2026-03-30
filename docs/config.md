@@ -1,6 +1,7 @@
 # 配置参考
 
 本文档提供 un-api 所有配置项的完整说明。
+
 ## 配置结构类型
 
 ```typescript
@@ -24,15 +25,9 @@ interface ConfigDtsOptions {
   /** 路径别名 */
   pathAlias: string;
 }
-// 文档缓存配置
-interface ConfigCacheOptions {
-  /** 是否启用缓存 */
-  enable: boolean;
-  /** 缓存有效时长 */
-  expireTime: number;
-}
+
 // 单个文档所有配置
-interface ConfigDocOptions<CACHE = ConfigCacheOptions, DTS = ConfigDtsOptions> {
+interface ConfigDocOptions<DTS = ConfigDtsOptions> {
   /** 文档标识 */
   name: string;
   /** 文档 URL */
@@ -45,8 +40,6 @@ interface ConfigDocOptions<CACHE = ConfigCacheOptions, DTS = ConfigDtsOptions> {
   output: string;
   /** 文件输出类型 */
   outputType: "ts" | "js";
-  /** 缓存配置 */
-  cache: CACHE;
   /** 生成代码模式 */
   codeMode: "proxy" | "memory";
   /** 代码导出模式 */
@@ -73,9 +66,7 @@ interface ConfigDocOptions<CACHE = ConfigCacheOptions, DTS = ConfigDtsOptions> {
   enableMultiContentType: boolean;
 }
 // 文档可公共配置项
-export type ConfigDocOptionsCommon<CACHE = Partial<ConfigCacheOptions>, DTS = Partial<ConfigDtsOptions>> = Partial<
-  Omit<ConfigDocOptions<CACHE, DTS>, "name" | "url">
->;
+export type ConfigDocOptionsCommon<DTS = Partial<ConfigDtsOptions>> = Partial<Omit<ConfigDocOptions<DTS>, "name" | "url">>;
 // 文档全配置项
 export interface ConfigOptions extends ConfigDocOptionsCommon {
   docs?: (ConfigDocOptionsCommon & Pick<ConfigDocOptions, "name" | "url">)[];
@@ -131,11 +122,7 @@ const DEFAULT_DOC_CONFIG = {
     fileFooter: [],
     typeConvert: {},
     pathAlias: "@${name}",
-  },
-  cache: {
-    enable: true,
-    expireTime: 600000,
-  },
+  }
 };
 ```
 
@@ -143,55 +130,46 @@ const DEFAULT_DOC_CONFIG = {
 
 ### 总配置项
 
-| 配置项       | 类型           | 默认值             | 说明                             |
-| ------------ | -------------- | ------------------ | -------------------------------- |
-| `docs`       | `array`       | 必需               | 文档配置项数组-默认支持批量 |
-| `其他文档配置项`       | `any`       | 非必需               | 除开`name` `url`其他字段均可配置 |
-
+| 配置项           | 类型    | 默认值 | 说明                             |
+| ---------------- | ------- | ------ | -------------------------------- |
+| `docs`           | `array` | 必需   | 文档配置项数组-默认支持批量      |
+| `其他文档配置项` | `any`   | 非必需 | 除开`name` `url`其他字段均可配置 |
 
 ### 文档配置项
 
-| 配置项       | 类型           | 默认值             | 说明                             |
-| ------------ | -------------- | ------------------ | -------------------------------- |
-| `name`       | `string`       | ``                 | 文档标识，保持唯一性-将在生成代码中的`模块`/`函数名`/`路径别名`等地方使用 |
-| `url`        | `string`       | ``                 | 用于获取文档内的接口定义-支持 `远程地址`/`本地文件路径` |
-| `prefix`     | `string`       | `"api"`            | 导出变量名的前缀-默认`api` |
-| `enable`     | `boolean`      | `true`             | 是否启用当前文档的接口定义解析和生成 |
-| `output`     | `string`       | `"src/apis/${name}"` | 从cwd开始 默认`src/apis/${name}` |
-| `outputType` | `"ts" \| "js"` | `"ts"`             | 决定生成文件的后缀名，默认`ts` |
-| `cache`      | `ConfigCacheOptions` | 见下方`cache`配置项 | 用于临时保存获取到的文档内容-默认path=`.${LIB_NAME}` 目录 |
-| `codeMode`   | `"proxy" \| "memory"` | `"proxy"`          | 兼容不同环境对于代码包装API的支持-默认`proxy` |
-| `exportMode` | `"doc" \| "module" \| "api" \| "default"` | `"module"` | 决定外部如何导入使用、生成的代码导出方式-默认`module` |
-| `requestor`  | `string`       | `"({url,...ops})=>globalThis.fetch(url, ops)"` | 实际发送请求的函数-只能接收一个对象参数-至少包含`url`/`method`/`headers`属性-默认`({url,...ops})=>globalThis.fetch(url, ops)` |
-| `fileHeader` | `FileCodeType` | `[]`               | 生成的文件顶部添加的自定义代码 |
-| `fileFooter` | `FileCodeType` | `[]`               | 生成的文件底部添加的自定义代码 |
-| `docParser`  | `((doc: any) => OpenAPIObject \| void) \| null` | `(doc) => JSON.parse(doc)` | 用于支持其他协议格式的文档转为`openapi v3+` 规范 |
-| `apiParser`  | `((ctx: ApiCtx) => Partial<ApiCtxConfig> \| void) \| null` | `null` | 用于完全把控每个接口的生成参数-返回的配置对象将会合并到`ctx.config`中 |
-| `apiResponseCode` | `number \| string \| ((ctx: ApiCtx) => number \| string)` | `200` | 根据码从接口responses的定义中取成功的类型定义-默认`200` |
-| `apiResponseType` | `string \| ((ctx: ApiCtx) => string)` | `"*/*"` | 根据类型从接口responses的定义中取成功的类型定义-默认`*/*` |
-| `apiRequestType` | `string \| ((ctx: ApiCtx) => string)` | `"*/*"` | 根据类型从接口requestBody的定义中取请求体的类型定义，默认`*/*` |
-| `dts`        | `ConfigDtsOptions` | 见下方dts文档配置项 | 用于配置生成的 TypeScript 类型文件的一些选项-默认path=`types` |
-| `enableMultiContentType` | `boolean` | `false` | 开启后同一个接口会根据不同的`Content-Type`类型生成不同的请求函数 |
+| 配置项                   | 类型                                                       | 默认值                                         | 说明                                                                                                                          |
+| ------------------------ | ---------------------------------------------------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `name`                   | `string`                                                   | ``                                             | 文档标识，保持唯一性-将在生成代码中的`模块`/`函数名`/`路径别名`等地方使用                                                     |
+| `url`                    | `string`                                                   | ``                                             | 用于获取文档内的接口定义-支持 `远程地址`/`本地文件路径`                                                                       |
+| `prefix`                 | `string`                                                   | `"api"`                                        | 导出变量名的前缀-默认`api`                                                                                                    |
+| `enable`                 | `boolean`                                                  | `true`                                         | 是否启用当前文档的接口定义解析和生成                                                                                          |
+| `output`                 | `string`                                                   | `"src/apis/${name}"`                           | 从cwd开始 默认`src/apis/${name}`                                                                                              |
+| `outputType`             | `"ts" \| "js"`                                             | `"ts"`                                         | 决定生成文件的后缀名，默认`ts`                                                                                                |
+| `codeMode`               | `"proxy" \| "memory"`                                      | `"proxy"`                                      | 兼容不同环境对于代码包装API的支持-默认`proxy`                                                                                 |
+| `exportMode`             | `"doc" \| "module" \| "api" \| "default"`                  | `"module"`                                     | 决定外部如何导入使用、生成的代码导出方式-默认`module`                                                                         |
+| `requestor`              | `string`                                                   | `"({url,...ops})=>globalThis.fetch(url, ops)"` | 实际发送请求的函数-只能接收一个对象参数-至少包含`url`/`method`/`headers`属性-默认`({url,...ops})=>globalThis.fetch(url, ops)` |
+| `fileHeader`             | `FileCodeType`                                             | `[]`                                           | 生成的文件顶部添加的自定义代码                                                                                                |
+| `fileFooter`             | `FileCodeType`                                             | `[]`                                           | 生成的文件底部添加的自定义代码                                                                                                |
+| `docParser`              | `((doc: any) => OpenAPIObject \| void) \| null`            | `(doc) => JSON.parse(doc)`                     | 用于支持其他协议格式的文档转为`openapi v3+` 规范                                                                              |
+| `apiParser`              | `((ctx: ApiCtx) => Partial<ApiCtxConfig> \| void) \| null` | `null`                                         | 用于完全把控每个接口的生成参数-返回的配置对象将会合并到`ctx.config`中                                                         |
+| `apiResponseCode`        | `number \| string \| ((ctx: ApiCtx) => number \| string)`  | `200`                                          | 根据码从接口responses的定义中取成功的类型定义-默认`200`                                                                       |
+| `apiResponseType`        | `string \| ((ctx: ApiCtx) => string)`                      | `"*/*"`                                        | 根据类型从接口responses的定义中取成功的类型定义-默认`*/*`                                                                     |
+| `apiRequestType`         | `string \| ((ctx: ApiCtx) => string)`                      | `"*/*"`                                        | 根据类型从接口requestBody的定义中取请求体的类型定义，默认`*/*`                                                                |
+| `dts`                    | `ConfigDtsOptions`                                         | 见下方dts文档配置项                            | 用于配置生成的 TypeScript 类型文件的一些选项-默认path=`types`                                                                 |
+| `enableMultiContentType` | `boolean`                                                  | `false`                                        | 开启后同一个接口会根据不同的`Content-Type`类型生成不同的请求函数                                                              |
 
 ### `dts`文档配置项
 
-| 配置项            | 类型      | 默认值        | 说明                               |
-| ----------------- | --------- | ------------- | ---------------------------------- |
-| `dts.enable`      | `boolean` | `true`        | 是否启用TS类型                     |
-| `dts.path`        | `string`  | `"types/${name}"` | 类型文件输出路径                   |
-| `dts.apiOptions`  | `string`  | `"RequestInit"` | 接口参数泛型                       |
-| `dts.apiResult`   | `string`  | `"Response"`    | 接口结果泛型                       |
-| `dts.fileHeader`  | `FileCodeType` | `[]`         | 文件前置代码                       |
-| `dts.fileFooter`  | `FileCodeType` | `[]`         | 文件后置代码                       |
-| `dts.typeConvert` | `Partial<Record<keyof SchemaObject, (value: SchemaObject \| ReferenceObject) => string>>` | `{}` | 类型转换定义                       |
-| `dts.pathAlias`   | `string`  | `"@${name}"`   | 路径别名                           |
-
-### `cache`文档配置项
-
-| 配置项             | 类型      | 默认值            | 说明                               |
-| ------------------ | --------- | ----------------- | ---------------------------------- |
-| `cache.enable`     | `boolean` | `true`            | 是否启用缓存                       |
-| `cache.expireTime` | `number`  | `600000`          | 缓存有效时长（毫秒）               |
+| 配置项            | 类型                                                                                      | 默认值            | 说明             |
+| ----------------- | ----------------------------------------------------------------------------------------- | ----------------- | ---------------- |
+| `dts.enable`      | `boolean`                                                                                 | `true`            | 是否启用TS类型   |
+| `dts.path`        | `string`                                                                                  | `"types/${name}"` | 类型文件输出路径 |
+| `dts.apiOptions`  | `string`                                                                                  | `"RequestInit"`   | 接口参数泛型     |
+| `dts.apiResult`   | `string`                                                                                  | `"Response"`      | 接口结果泛型     |
+| `dts.fileHeader`  | `FileCodeType`                                                                            | `[]`              | 文件前置代码     |
+| `dts.fileFooter`  | `FileCodeType`                                                                            | `[]`              | 文件后置代码     |
+| `dts.typeConvert` | `Partial<Record<keyof SchemaObject, (value: SchemaObject \| ReferenceObject) => string>>` | `{}`              | 类型转换定义     |
+| `dts.pathAlias`   | `string`                                                                                  | `"@${name}"`      | 路径别名         |
 
 
 ### 关键配置项说明
@@ -240,6 +218,7 @@ export const apiUserGetById = (
   params: { id: number }
 ): Promise<Response> => { ... };  // 来自 apiResult
 ```
+
 ### 解析器配置
 
 #### `docParser`
@@ -281,12 +260,7 @@ export default defineConfig({
   docs: [
     {
       name: "api",
-      url: process.env.NODE_ENV === 'production' 
-        ? "https://api.production.com/openapi.json"
-        : "./api-docs/openapi.json",
-      cache: {
-        enable: process.env.NODE_ENV !== 'production',
-      },
+      url: process.env.NODE_ENV === "production" ? "https://api.production.com/openapi.json" : "./api-docs/openapi.json",
     },
   ],
 });
@@ -300,7 +274,7 @@ export default defineConfig({
     {
       name: "internal",
       url: "./api-docs/internal.json",
-      enable: process.env.ENABLE_INTERNAL_API === 'true',
+      enable: process.env.ENABLE_INTERNAL_API === "true",
     },
     {
       name: "public",
@@ -323,7 +297,7 @@ export default defineConfig({
         typeConvert: {
           // 手机号类型
           pattern: (schema) => {
-            if (schema.pattern === '^1[3-9]\\d{9}$') {
+            if (schema.pattern === "^1[3-9]\\d{9}$") {
               return 'string & { readonly __brand: "phone" }';
             }
             return undefined;
@@ -331,15 +305,13 @@ export default defineConfig({
           // 自定义枚举处理
           enum: (schema) => {
             if (!schema.enum) return undefined;
-            const values = schema.enum.map(v => 
-              typeof v === 'string' ? `"${v}"` : v
-            ).join(' | ');
+            const values = schema.enum.map((v) => (typeof v === "string" ? `"${v}"` : v)).join(" | ");
             return `(${values})`;
           },
           // 日期时间处理
           format: (schema) => {
-            if (schema.format === 'date-time') {
-              return 'string | Date';
+            if (schema.format === "date-time") {
+              return "string | Date";
             }
             return undefined;
           },
@@ -438,13 +410,13 @@ export default defineConfig({
 
 ```typescript
 // un-api.config.ts
-import { defineConfig } from '@itmanyong/un-api';
+import { defineConfig } from "@itmanyong/un-api";
 
 export default defineConfig({
   docs: [
     {
-      name: 'api',
-      url: './api-docs/openapi.json',
+      name: "api",
+      url: "./api-docs/openapi.json",
     },
   ],
 });
@@ -457,8 +429,8 @@ export default defineConfig({
 module.exports = {
   docs: [
     {
-      name: 'api',
-      url: './api-docs/openapi.json',
+      name: "api",
+      url: "./api-docs/openapi.json",
     },
   ],
 };

@@ -1,6 +1,17 @@
 import type { ApiCtx } from "@/types";
 import type { ParameterObject, ReferenceObject, SchemaObject } from "openapi3-ts/oas31";
 
+/**
+ * 归一化注释文本，避免换行污染 JSDoc。
+ * @param value 原始文本
+ * @returns 归一化后的文本
+ */
+const normalizeNoteText = (value: unknown): string => {
+  return String(value ?? "")
+    .replace(/\s+/g, " ")
+    .trim();
+};
+
 /** 表格头注释 */
 const TABLE_HEADER = "| --- | --- | --- | --- | --- |";
 const TABLE_COLUMNS = "| 所属模块 | 接口名 | URL地址 | 请求类型 | 接口描述 |";
@@ -149,7 +160,7 @@ export const getFieldNote = (fieldName: string, schema: SchemaObject | Reference
     return `/** ${typeDesc} */`;
   }
 
-  const descText = allDescriptions.join(" | ");
+  const descText = normalizeNoteText(allDescriptions.join(" | "));
   return `/** ${typeDesc} - ${descText} */`;
 };
 

@@ -1,5 +1,6 @@
 import { apiUserInfo } from "@xinli";
 import { apiUserGetPage } from "@yusuan";
+import qianniao from "@qianniao";
 // xinli
 apiUserInfo.postItem({
   data: {
@@ -20,5 +21,11 @@ apiUserGetPage({
   query: {
     page: 1,
     size: 10,
+  },
+});
+// qianniao
+qianniao.app.postByIdRegenerateSecret({
+  params: {
+    id: 1,
   },
 });

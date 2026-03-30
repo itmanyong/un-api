@@ -1,10 +1,9 @@
 import pc from "picocolors";
 import { Table } from "console-table-printer";
 import type { DocResult, PluginOptions } from "../types";
-import { loadCacheConfig, setupConfig } from "./config";
+import { setupConfig } from "./config";
 import { setupDoc } from "./doc";
-import { LIB_NAME, formatDuration, generateUniqueKey, getFullPath } from "@/shared";
-import { writeFile, writeFileSync } from "fs";
+import { LIB_NAME, formatDuration} from "@/shared";
 /**
  * 打印生成总结表格
  * @param results 生成结果
@@ -58,32 +57,10 @@ const printSummaryTable = (results: DocResult[]): void => {
 export const setupRun = async (options?: PluginOptions): Promise<void> => {
   // 读取最终配置
   const configList = setupConfig(options);
-  // 获取缓存配置
-  const cacheConfig = loadCacheConfig();
   // 筛选需要生成的配置
-  const runConfigList = configList.filter((config) => {
-    if (!config.enable) return true;
-    if (cacheConfig.docs?.[config.name]?.hash !== generateUniqueKey(config)) return true;
-    if (config.cache?.enable === true && config.cache.expireTime > 0) {
-      const expires = cacheConfig.cache?.expires?.[config.name] ?? 0;
-      if (Date.now() >= expires) return true;
-    }
-    return false;
-  });
+  const runConfigList = configList.filter((config) => config.enable);
   // 执行文档生成
   const results = await Promise.all(runConfigList.map((config) => setupDoc(config)));
   // 输出结果
   printSummaryTable(results);
-  // 更新存储文档
-  for (let i = 0; i < configList.length; i++) {
-    const item = configList[i];
-    if (!item.cache.enable) {
-      delete cacheConfig.cache.expires[item.name];
-      continue;
-    }
-    cacheConfig.cache.expires[item.name] = Date.now() + item.cache.expireTime;
-    ((cacheConfig.docs ??= {})[item.name] ??= {}).hash = generateUniqueKey(item);
-  }
-  const cachePath = getFullPath(`.${LIB_NAME}`, "config.json");
-  writeFileSync(cachePath, JSON.stringify(cacheConfig, null, 2), { encoding: "utf-8", flag: "w", flush: true });
 };

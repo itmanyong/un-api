@@ -6,7 +6,7 @@ import { API_DEFINE_DIR_NAME } from "./shared";
 import { getApiNote, getDocNote, getModuleNote } from "@/core/note";
 import { DEFAULT_FILE_HEADER } from "@/core/config";
 import { writeFile } from "fs/promises";
-import { existsSync, mkdirSync, rmdirSync, rmSync } from "fs";
+import { existsSync, mkdirSync, rmSync } from "fs";
 import { dirname } from "path";
 
 /**

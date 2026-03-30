@@ -1,5 +1,5 @@
 // 当前文件由 un-api 自动生成-非必要请勿手动修改此文件
-import * as apis from './apis/index.ts';
+import * as apis from "./apis/index.ts";
 import { createMemoryDefault } from "@itmanyong/un-api/browser";
 
 /**
@@ -31,4 +31,4 @@ import { createMemoryDefault } from "@itmanyong/un-api/browser";
  * | log | deleteLoginClean | /log/login/clean | DELETE | 清理登录日志 |
  * | log | deleteExceptionClean | /log/exception/clean | DELETE | 清理异常日志 |
  */
-export default createMemoryDefault(apis,({url,...ops})=>globalThis.fetch(url, ops));
+export default createMemoryDefault(apis, ({ url, ...ops }) => globalThis.fetch(url, ops));

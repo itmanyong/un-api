@@ -10,7 +10,7 @@
     "esbuild-plugin-un-api",
     "farm-plugin-un-api",
     "generator-api",
-    "itemanyong",
+    "itmanyong",
     "openapi",
     "rolldown-plugin-un-api",
     "rollup-plugin-un-api",
@@ -45,18 +45,15 @@
     "stop": "node ./scripts/stop-node-process.js",
     "changeset": "changeset",
     "changeset-version": "changeset version",
+    
     "release": "node ./scripts/release.js"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "catalog:",
     "@changesets/cli": "catalog:",
     "@types/node": "catalog:",
     "axios": "catalog:",
     "console-table-printer": "catalog:",
     "es-toolkit": "catalog:",
-    "husky": "catalog:",
-    "is-ci": "catalog:",
-    "lint-staged": "catalog:",
     "openapi3-ts": "catalog:",
     "oxfmt": "catalog:",
     "picocolors": "catalog:",
@@ -66,8 +63,7 @@
     "typescript": "catalog:",
     "unconfig": "catalog:",
     "unplugin": "catalog:",
-    "vite": "catalog:",
-    "vitest": "catalog:"
+    "vite": "catalog:"
   },
   "engines": {
     "node": ">=24.10.0",

@@ -8,20 +8,14 @@ export default defineConfig({
       name: "qianniao",
       apiRequestType: "application/json",
       exportMode: "default",
-      codeMode: "memory",
-      cache: {
-        enable: false,
-      },
+      codeMode: "memory"
     },
     {
       enable: true,
       url: "./api-docs/xinli-openapi.json",
       name: "xinli",
       apiRequestType: "application/json",
-      exportMode: "module",
-      cache: {
-        enable: false,
-      },
+      exportMode: "module"
     },
     // axios配置示例
     {
@@ -48,10 +42,7 @@ export default defineConfig({
           }
           return [];
         },
-      },
-      cache: {
-        enable: true,
-      },
+      }
     },
   ],
 });

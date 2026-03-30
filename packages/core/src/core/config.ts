@@ -1,9 +1,7 @@
 import { loadConfigSync } from "unconfig";
 import type { ConfigDocOptions, ConfigOptions, PluginOptions, RecordType } from "@/types";
-import { getFullPath, LIB_NAME, PKG_NAME } from "../shared";
+import { LIB_NAME } from "../shared";
 import { cloneDeep, isPlainObject, isString, merge } from "es-toolkit";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
-import { dirname } from "path";
 
 export const DEFAULT_CONFIG_PATH = "un-api.config";
 export const API_TYPE_GENERATE_NAME = "ApiFunctionGenerate";
@@ -21,7 +19,7 @@ export const DEFAULT_DOC_CONFIG: ConfigDocOptions = {
   fileHeader: [],
   fileFooter: [],
   docParser: (doc) => JSON.parse(doc),
-  apiParser: (ctx) => {},
+  apiParser: () => {},
   apiResponseCode: 200,
   apiResponseType: "*/*",
   apiRequestType: "*/*",
@@ -35,11 +33,7 @@ export const DEFAULT_DOC_CONFIG: ConfigDocOptions = {
     fileFooter: [],
     typeConvert: {},
     pathAlias: "@${name}",
-  },
-  cache: {
-    enable: true,
-    expireTime: 600000,
-  },
+  }
 };
 /**
  * 编译配置
@@ -113,20 +107,4 @@ export const setupConfig = (options?: PluginOptions): ConfigDocOptions[] => {
  */
 export const defineConfig = (config: ConfigOptions): ConfigOptions => {
   return config;
-};
-/**
- * 获取缓存配置
- */
-export const loadCacheConfig = (): RecordType => {
-  const cachePath = getFullPath(`.${LIB_NAME}`, "config.json");
-  let cacheConfig = { cache: { expires: {} }, docs: {} } as RecordType;
-  try {
-    if (!existsSync(cachePath)) {
-      mkdirSync(dirname(cachePath), { recursive: true });
-      writeFileSync(cachePath, JSON.stringify(cacheConfig, null, 2), { encoding: "utf-8", flag: "w", flush: true });
-      return cacheConfig;
-    }
-    cacheConfig = JSON.parse(readFileSync(cachePath, { encoding: "utf-8" }));
-  } catch {}
-  return cacheConfig;
 };
